@@ -1,0 +1,89 @@
+---
+title: "Lab 13"
+output: html_document
+date: "2022-11-17"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(readxl)
+```
+
+Use `read_excel` to open Sheet2 of the Excel file "sunflower_growth_data.xlsx" (in the data folder). You'll need to skip the first row when loading the data! (You can use Import Dataset to generate the code for this.)
+
+```{r}
+
+```
+
+This dataset contains weekly height data from several hundred lines of cultivated sunflower. However, it has way more information than we need. Use `select` to select the columns line_id, rep_letter, row, col, hoophouse, core12, and all of the columns that begin with the word "height". Store the result in a new data frame (e.g. `dat`):
+
+```{r}
+
+```
+
+Heights were recorded weekly, and the columns are labeled based on which day of the year height was measured. So height_93 represents heights measured on the 93rd day of the year. This data is in wide format, but to plot the relationship between day vs height, we need it to be in long format. Use the `pivot_longer` function to create a new variable called day and a new variable called height.
+
+```{r}
+dat <- dat %>% pivot_longer(cols = height_93:height_157,names_to = "day",values_to = "height")
+```
+
+Now we want to convert the day column to numeric. Use `mutate` and the `parse_number` function to convert character values like "height_93" to numeric value 93, etc.
+
+```{r}
+
+```
+
+Now let's create a new data frame named line_means. You'll use `group_by` and `summarize` to calculate line_id means of height for each day and hoophouse. Since there's missing data, you'll need to add `na.rm=TRUE` to your `mean` function.
+
+```{r}
+
+```
+
+Next, create a new variable called core_12 by filtering the data to only include rows where the value for the column named core12 is greater than zero.
+
+```{r}
+
+```
+
+Use ggplot to plot day vs height for the core12 lines. Use color to distinguish line_id. Include a scatterplot and a smoothed trend to visualize average growth data by line.
+
+```{r}
+
+```
+
+Next, let's create another data frame named core12_means. Use the core_12 data frame to take line_id means for height at each day, but don't include hoophouse. Then plot the result in ggplot in the same way as you did above.
+
+```{r}
+
+```
+
+Filter core12_means to only include the height on day 121.
+
+```{r}
+
+```
+
+Now load the file "SAM_class.csv" and save it to a data frame named SAM_class. This contains information about each sunflower line. Use the `read.csv()` function for this.
+
+```{r}
+
+```
+
+Use the appropriate join function to merge SAM_class and core12_means by line_id. Then print out the result to examine what classes are represented by the core 12 lines.
+
+```{r}
+
+```
+
+Now use the appropraite join function to merge line_means with SAM_class. Then make a boxplot or violin plot to examine height variation by class.
+
+```{r}
+
+```
+
+Use the `pivot_wider` function to put the line_means data frame in wide format (with columns named e.g. day_93, etc).
+
+```{r}
+
+```
