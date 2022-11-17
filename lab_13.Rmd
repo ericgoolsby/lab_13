@@ -40,7 +40,7 @@ Now let's create a new data frame named line_means. You'll use `group_by` and `s
 
 ```
 
-Next, create a new variable called core_12 by filtering the data to only include rows where the value for the column named core12 is greater than zero.
+Next, create a new data frame called core_12 by filtering the raw data (not line_means) to only include rows where the value for the column named core12 is greater than zero.
 
 ```{r}
 
